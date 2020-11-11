@@ -27,6 +27,7 @@ export default function SignIn({navigation})  {
   const [password, setPassword] = useState();
   const [result, setResult] = useState();
 
+  const [err, setErr] = useState();
   return (
     <View style={styles.container}>
         <Text style={styles.text}>
@@ -44,16 +45,29 @@ export default function SignIn({navigation})  {
           onChangeText= {text => setPassword(text)}
         />
 
-        <TouchableOpacity
+<TouchableOpacity
           style={styles.button}
-          onPress={() => checkInput(navigation, username, password)}
+          onPress={() => {
+            fetch(url + `/users/${username}/${password}`)
+              .then((response) => response.json())
+              .then((json)=>{
+                console.log("signin user with id", json.user_id)
+                if (json.validated=="true") navigation.navigate('ViewPatients', {user_id: json.user_id});
+                else{ setErr(<Text style={styles.errText} >error</Text>) }
+                })
+              .catch((error) => setErr(<Text style={styles.errText} >wrong input</Text>))
+          }}
           >
             <Text style={styles.buttonText}>Press Here</Text>
         </TouchableOpacity>
 
-        <View style={styles.inLine}>
+        {err}
 
-            <Text style={styles.hyperlink} onPress={() => checkInput(navigation, username, password)}>
+        <View style={styles.inLine}>
+            <Text style={styles.hyperlink} onPress={() => {
+              // TODO:
+              navigation.navigate("SignUp")
+            }}>
               Forget Password?
             </Text>
 
@@ -112,6 +126,12 @@ const styles = StyleSheet.create(
       color: "white",
       alignSelf: 'center',
       fontSize: 32,
+    },
+    errText:{
+      fontFamily: "serif",
+      color: "black",
+      alignSelf: 'center',
+      fontSize: 22,
     },
   }
 );

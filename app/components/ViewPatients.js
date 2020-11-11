@@ -12,10 +12,10 @@ import {
 
 var url = "http://127.0.0.1:3009"
 
-export default function ViewPatients({ navigation })  {
+export default function ViewPatients({ navigation, route })  {
   const [isLoading, setLoading] = useState(true);
   const [patientsList, setPatientsList] = useState([]);
-
+  console.log(route.params.user_id);
   // load list of patients
   useEffect(() => { // TODO: change to oue domain
     fetch(url + `/patients`)
@@ -45,7 +45,7 @@ export default function ViewPatients({ navigation })  {
           <FlatList
             data={patientsList}
             renderItem={({ item }) => (
-              <ListItem item={item} navigation={navigation}/>
+              <ListItem item={item} navigation={navigation} user_id = {route.params.user_id}/>
             )}
           />
         )}
