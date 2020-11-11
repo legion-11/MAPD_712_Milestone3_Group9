@@ -28,9 +28,8 @@ export default function ViewPatients({ navigation, route })  {
   React.useLayoutEffect(()=>{
     navigation.setOptions({
       headerRight:()=>(
-
         <TouchableOpacity style={styles.button}
-          onPress={() => navigation.navigate("AddPatient", { patient: '' })}
+          onPress={() => navigation.navigate("AddPatient", { patient: '', user_id: route.params.user_id})}
           >
           <Text style={styles.buttonText}>{"  +  "}</Text>
         </TouchableOpacity>
@@ -117,7 +116,7 @@ function ListItem(props){
       key={props.item.id}
       style={listStyles.container}
       onPress={() =>
-        props.navigation.navigate('ViewPatient', { patient: props.item })
+        props.navigation.navigate('ViewPatient', { patient: props.item, user_id: props.user_id })
       }>
 
       {image}

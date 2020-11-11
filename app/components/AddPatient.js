@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { StackActions, CommonActions  } from '@react-navigation/native';
 import {
   ScrollView,
   StyleSheet,
@@ -45,7 +44,6 @@ function save(navigation, name, room, address, notes, phone_number, _id, user_id
 export default function AddPatient({ navigation, route })  {
   var patient = route.params.patient
   console.log("EditPatient start", patient._id, 'user_id', route.params.user_id)
-
   //hooks for patient info
   const [name, setName] = useState(patient.name || '');
   const [room, setRoom] = useState(patient.room || '');

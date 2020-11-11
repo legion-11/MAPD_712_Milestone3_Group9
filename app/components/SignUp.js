@@ -13,7 +13,6 @@ function checkemail(email){
   // TODO:
   return true
 }
-
 //screen for signing up
 export default function SignIn({navigation})  {
   const [username, setUsername] = useState();
@@ -46,8 +45,7 @@ export default function SignIn({navigation})  {
           onChangeText= {text => setEmail(text)}
         />
 
-     {errorText}
-
+        {errorText}
 
         <TouchableOpacity
           style={styles.button}
